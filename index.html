@@ -33,17 +33,20 @@
     <div class="flex flex-col items-center p-4">
       <img id="imageDisplay" src="./images/bemy-valentine.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px]" style="object-fit: cover;" />
       <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Will you be my Valentine MY BABYBOO?</h2>
-      <div class="flex gap-4 pt-[20px] items-center relative" id="responseButtons">
-        <button id="yesButton"
-          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
-          Yes
-        </button>
-        <button id="noButton"
-          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition disabled:pointer-events-none disabled:opacity-50 hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white">
-          No
-        </button>
-      </div>
-    </div>
+     <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
+  <button id="yesButton"
+    class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
+    Yes
+  </button>
+
+  <!-- Wrapper keeps layout centered -->
+  <div id="noWrapper" class="relative min-w-[75px] h-12">
+    <button id="noButton"
+      class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition hover:bg-red-700 h-12 w-full px-4 py-2 bg-red-500 text-white">
+      No
+    </button>
+  </div>
+</div>
   </div>
 
 <script type="module">
@@ -51,27 +54,24 @@
 
   const yesButton = document.getElementById('yesButton');
   const noButton = document.getElementById('noButton');
+  const noWrapper = document.getElementById('noWrapper');
   const imageDisplay = document.getElementById('imageDisplay');
   const valentineQuestion = document.getElementById('valentineQuestion');
   const responseButtons = document.getElementById('responseButtons');
 
-  // Capture initial position inside the container
+  // Lock No button to its original position inside wrapper
   const rect = noButton.getBoundingClientRect();
-  const parentRect = responseButtons.getBoundingClientRect();
+  const parentRect = noWrapper.getBoundingClientRect();
 
-  const startX = rect.left - parentRect.left;
-  const startY = rect.top - parentRect.top;
-
-  // Lock No button in its original spot
   noButton.style.position = 'absolute';
-  noButton.style.left = `${startX}px`;
-  noButton.style.top = `${startY}px`;
+  noButton.style.left = '0px';
+  noButton.style.top = '0px';
   noButton.style.transition = 'top 0.15s ease, left 0.15s ease';
 
   function moveNoButton() {
     const padding = 10;
-    const maxX = responseButtons.clientWidth - noButton.offsetWidth - padding;
-    const maxY = responseButtons.clientHeight - noButton.offsetHeight - padding;
+    const maxX = window.innerWidth - noButton.offsetWidth - padding;
+    const maxY = window.innerHeight - noButton.offsetHeight - padding;
 
     const randomX = Math.random() * maxX;
     const randomY = Math.random() * maxY;
@@ -87,7 +87,7 @@
   noButton.addEventListener('touchstart', moveNoButton);
 
   yesButton.addEventListener('click', () => {
-    imageDisplay.src = './images/image7.gif';
+    imageDisplay.src = './images/Tilly.gif';
     valentineQuestion.textContent = 'WOOHOOOOOOOOOO';
     responseButtons.style.display = 'none';
     confetti();
@@ -96,6 +96,7 @@
 </body>
 
 </html>
+
 
 
 
