@@ -16,15 +16,9 @@
     }
 
     @keyframes bounce2 {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-      }
-      40% {
-        transform: translateY(-20px);
-      }
-      60% {
-        transform: translateY(-10px);
-      }
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-20px); }
+      60% { transform: translateY(-10px); }
     }
   </style>
 </head>
@@ -33,17 +27,18 @@
     <div class="flex flex-col items-center p-4">
       <img id="imageDisplay" src="./images/bemy-valentine.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px]" style="object-fit: cover;" />
       <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Will you be my Valentine MY BABYBOO?</h2>
-     <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
-  <button id="yesButton"
-    class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
-    Yes
-  </button>
-    <button id="noButton"
-      class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition disabled:pointer-events-none disabled:opacity-50 hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white">
-      No
-    </button>
-  </div>
-</div>
+      
+      <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
+        <button id="yesButton"
+          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
+          Yes
+        </button>
+        <button id="noButton"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white">
+          No
+        </button>
+      </div>
+    </div>
   </div>
 
 <script type="module">
@@ -55,11 +50,14 @@
   const valentineQuestion = document.getElementById('valentineQuestion');
   const responseButtons = document.getElementById('responseButtons');
 
-  // Make the No button movable
-  noButton.style.position = 'absolute';
-
   function moveNoButton() {
+    // Set to absolute only when the movement starts
+    if (noButton.style.position !== 'absolute') {
+      noButton.style.position = 'absolute';
+    }
+
     const padding = 20;
+    // Calculate boundaries to keep button on screen
     const maxX = window.innerWidth - noButton.offsetWidth - padding;
     const maxY = window.innerHeight - noButton.offsetHeight - padding;
 
@@ -74,7 +72,10 @@
   noButton.addEventListener('mouseenter', moveNoButton);
 
   // Mobile: dodge touch
-  noButton.addEventListener('touchstart', moveNoButton);
+  noButton.addEventListener('touchstart', (e) => {
+    e.preventDefault(); // Prevents accidental clicks on mobile while dodging
+    moveNoButton();
+  });
 
   yesButton.addEventListener('click', () => {
     imageDisplay.src = './images/Tilly.gif';
@@ -84,11 +85,4 @@
   });
 </script>
 </body>
-
 </html>
-
-
-
-
-
-
