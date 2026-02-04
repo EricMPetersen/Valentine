@@ -35,14 +35,11 @@
       <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Will you be my Valentine MY BABYBOO?</h2>
      <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
   <button id="yesButton"
-    class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
+    class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
     Yes
   </button>
-
-  <!-- Wrapper keeps layout centered -->
-  <div id="noWrapper" class="relative min-w-[75px] h-12">
     <button id="noButton"
-      class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition hover:bg-red-700 h-12 w-full px-4 py-2 bg-red-500 text-white">
+      class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition disabled:pointer-events-none disabled:opacity-50 hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white">
       No
     </button>
   </div>
@@ -54,22 +51,15 @@
 
   const yesButton = document.getElementById('yesButton');
   const noButton = document.getElementById('noButton');
-  const noWrapper = document.getElementById('noWrapper');
   const imageDisplay = document.getElementById('imageDisplay');
   const valentineQuestion = document.getElementById('valentineQuestion');
   const responseButtons = document.getElementById('responseButtons');
 
-  // Lock No button to its original position inside wrapper
-  const rect = noButton.getBoundingClientRect();
-  const parentRect = noWrapper.getBoundingClientRect();
-
+  // Make the No button movable
   noButton.style.position = 'absolute';
-  noButton.style.left = '0px';
-  noButton.style.top = '0px';
-  noButton.style.transition = 'top 0.15s ease, left 0.15s ease';
 
   function moveNoButton() {
-    const padding = 10;
+    const padding = 20;
     const maxX = window.innerWidth - noButton.offsetWidth - padding;
     const maxY = window.innerHeight - noButton.offsetHeight - padding;
 
@@ -80,10 +70,10 @@
     noButton.style.top = `${randomY}px`;
   }
 
-  // Desktop
+  // Desktop: dodge mouse
   noButton.addEventListener('mouseenter', moveNoButton);
 
-  // Mobile
+  // Mobile: dodge touch
   noButton.addEventListener('touchstart', moveNoButton);
 
   yesButton.addEventListener('click', () => {
